@@ -109,11 +109,9 @@ public class VigilMastermind : MonoBehaviour
             _pair.Value.Clear();
             //시작점에서 부터 차근 차근 변경을 시작한다.
 
-            int safe = 10;
             _pair.Value.Add(StartPoint);
-            while (safe>0) 
+            while (true) 
             {
-                safe--;
                 //다음점과 현재 점 사이의 거리를 잰다
                 Vector3 targetPoint = BaseBorderPointList[currentPoint];
                 float distanceToNextDot = Vector3.Distance(StartPoint, targetPoint);
