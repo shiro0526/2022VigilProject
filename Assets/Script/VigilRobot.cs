@@ -37,8 +37,11 @@ public class VigilRobot : MonoBehaviour, IRobotFunction
     }
     public void BeginWork()
     {
+        _patrolForward = true;
+        currentNum = 0;
         ChangeMovement(_pathList[currentNum]);
         DebugRayManager.ShowRoute(_pathList, _routeColor, disapeartime);
+
 
     }
     private void FixedUpdate()
@@ -55,7 +58,6 @@ public class VigilRobot : MonoBehaviour, IRobotFunction
     bool _patrolForward = true;
     void SetNextNum()
     {
-        Debug.Log(currentNum +"+" +_pathList.Count);
         switch (ePatrolMode)
         {
             case EPatrolMode.Patrol:
@@ -77,7 +79,7 @@ public class VigilRobot : MonoBehaviour, IRobotFunction
                         currentNum++;
                     }
                 }
-                Debug.Log(currentNum + "+" + _pathList.Count);
+                //Debug.Log(currentNum + "+" + _pathList.Count);
                 break;
             case EPatrolMode.Cycle:
                 currentNum++;

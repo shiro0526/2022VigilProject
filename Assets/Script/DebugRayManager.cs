@@ -16,8 +16,6 @@ public class DebugRayManager : MonoBehaviour
         {
             Debug.DrawLine(list[i - 1], list[i], color, duration);
         }
-        Debug.DrawLine(list[list.Count - 1], list[0], color, duration);
-
     }
 
 }

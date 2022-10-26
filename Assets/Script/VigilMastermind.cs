@@ -36,14 +36,22 @@ public class VigilMastermind : MonoBehaviour
 
     public void Start()
     {
-        RefreshRobots();
-        RefreshBoundary();
-        CheckBoundary();
+        RestartSystem();
     }
     public void Update()
     {
 
     }
+
+
+
+    public void RestartSystem() 
+    {
+        RefreshRobots();
+        RefreshBoundary();
+        CheckBoundary();
+    }
+
 
     void RefreshRobots()
     {
@@ -72,6 +80,7 @@ public class VigilMastermind : MonoBehaviour
         #region// 사전 계산 부분
         //테두리를 계산한다.
         //테두리의 사이즈를 측정한 다음에 테두리의 면적에 따라 그 경계면을 순회하는 시스템을 개발할 것.
+        BaseBorderPointList.Clear();
         BaseBorderPointList.Add(_borderObjectList[0].transform.position);
         float totalDistance = 0;
         for (int i = 1; i < _borderObjectList.Count; i++)
@@ -108,15 +117,15 @@ public class VigilMastermind : MonoBehaviour
             areaPercent = totalDistance * areaPercent;
             _pair.Value.Clear();
             //시작점에서 부터 차근 차근 변경을 시작한다.
-
             _pair.Value.Add(StartPoint);
-            while (true) 
+            while (currentPoint< BaseBorderPointList.Count) 
             {
                 //다음점과 현재 점 사이의 거리를 잰다
+                Debug.Log(currentPoint);
                 Vector3 targetPoint = BaseBorderPointList[currentPoint];
                 float distanceToNextDot = Vector3.Distance(StartPoint, targetPoint);
                 //Debug.Log(currentPoint + " / " + BaseBorderPointList.Count + ":" + StartPoint +"\n "+ 
-                //areaPercent + " / " + totalDistance + ":" + distanceToNextDot);
+                    //areaPercent + " / " + totalDistance + ":" + distanceToNextDot);
 
                 //거리가 가쟈하는 영역의 크기보다 작을 경우
                 if (areaPercent <= distanceToNextDot)
@@ -124,12 +133,12 @@ public class VigilMastermind : MonoBehaviour
                     //향하는 길이보다 짧은 상황 이제 방향을 잡고 해당하는 만큼 이동시켜주면 된다.
                     StartPoint -= Vector3.Normalize(StartPoint - targetPoint) * areaPercent;
                     _pair.Value.Add(StartPoint);
-                    Debug.Log("Got it"+ StartPoint);
+                    //Debug.Log("Got it"+ StartPoint);
                     break;
                 }
                 else 
                 {
-                    Debug.Log("pass");
+                    //Debug.Log("pass");
                     StartPoint = BaseBorderPointList[currentPoint];
                     currentPoint++;
                     _pair.Value.Add(StartPoint);
